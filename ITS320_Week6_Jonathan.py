@@ -1,12 +1,26 @@
  #-------------------------------------------
 # Program Name: Animal Shelter Management System
 # Author: Jonathan Canola
-# Date: 03/24/2026
+# Date: 03/29/2026
 #-------------------------------------------
-# Pseudocode: [See suggestions below]
+# Pseudocode: 
+# Imoort ABC abstractmethod
+# Create base Animal class
+# Create Dog subclass of Animal that takes name, age, breed
+# Create Cat subclass of Animal that takes name, age, color
+# Create Shelter class with both add and remove @abstractmethod
+# Create ShelterInventory class that inherits Shelter
+# ShelterInventory holds add, remove, and display methods
+# Create MainMenu loop
+# MainMenu prompts user to pick between 1-4 of printed choices 
+# Choice 1 propomts user to add dog
+# Choice 2 propmts user to add cat
+# Chocie 3 prompts user to display inventory
+# Choice 4 Exits program
+# Print error message if invalid input
 #-------------------------------------------
-# Program Inputs: [See suggestions below]
-# Program Outputs: [See suggestions below]
+# Program Inputs: main menu selection 1-4, dog details (name, age, breed), and cat details (name, age, color)
+# Program Outputs: Menu selection, lets user know is valid input, lets user know if dog or cat was added, displays inventory in shelter, exits program
 #-------------------------------------------
 
 
@@ -35,11 +49,11 @@ class Animal(ABC):
 
 # Dog subclass
 class Dog(Animal):
-
+    # Dog takes name, age, and breed 
     def __init__(self, name, age, breed):
         super().__init__(name, age, "Dog")
         self.breed = breed
-
+    # prints specific dog to bark
     def bark(self):
         return "Woof!"
     
@@ -75,15 +89,22 @@ class ShelterInventory(Shelter):
     def add_animal(self, animal):
         self.animals.append(animal)
         print(f"{animal._name} added to shelter.")
+    
+    def remove_animal(self, name):
+        for animal in self.animals:
+            self.animals.remove(animal)
+            print(f"{name} has successfully been removed from shelter!")
+            return
+        print(f"{name} not found in shelter inventory.")
 
     def display_shelter(self):
-        for pet in self.anmimals:
-            pet.display_all()
+        for pet in self.animals:
+            pet.display_details()
             print(f"Sound: {pet.speak()}")  
 
 # Main Menu Function
 def MainMenu():
-    shelter_guest = ShelterInventory()
+    my_shelter = ShelterInventory()
     # Menu Loop until user exits program
     while True:
 
@@ -96,35 +117,34 @@ def MainMenu():
         print("4. Exit.")
         # Asks user to select options 1-5
         user_choice = input("Please make a selection (e.g. 1 - 4): ")
-        # Validates user makes valid selection
-
+        # If user input is 1 prompts user to add dog detail for shelter inventory
         if user_choice == '1':
             name = input("Enter the Dog's Name: ")
             age = int(input("Enter Dog's Age: "))
             breed = input("Enter Dog's Breed: ")
             new_dog = Dog(name, age, breed)
-            shelter_guest.add_animal(new_dog)
-
+            my_shelter.add_animal(new_dog)
+        # If user input is 2 prompts user to add cat details for shelter inventory
         elif user_choice == '2':
             name = input("Enter the Cat's Name: ")
             age = int(input("Enter Cat's Age: "))
-            breed = input("Enter Cat's Breed: ")
-            new_cat = Cat(name, age, breed)
-            shelter_guest.add_animal(new_cat)
-
+            color = input("Enter Cat's Color: ")
+            new_cat = Cat(name, age, color)
+            my_shelter.add_animal(new_cat)
+        # If user input is 3 displays currenty shelter inventory
         elif user_choice == '3':
-            shelter_guest.display_all()
-
+            my_shelter.display_shelter()
+        # If user input is 4 exits program
         elif user_choice == '4':
             print("-" * 40)
             print("Exiting program. Goodbye!")
             print("-" * 40)
             break
-
+        # If user enters anything else besides 1-4 propmts error message
         else:
             print("*" * 40)
             print("Error: Enter valid selection.")
             print("*" * 40)
-
-if __name__ == "__MainMenu__":
+# Runs loop for program
+if __name__ == "__main__":
     MainMenu()
