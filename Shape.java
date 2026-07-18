@@ -1,0 +1,54 @@
+public abstract class Shape {
+    public abstract double surface_area();
+
+    public abstract double volume();
+}
+
+public class Sphere extends Shape {
+    private double radius;
+
+    public Sphere(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public double surface_area() {
+        return 4 * Math.PI * Math.pow(radius, 2);
+    }
+
+    @Override
+    public double volume() {
+        return (4.0 / 3.0) * Math.PI * Math.pow(radius, 3);
+    }
+
+    @Override
+    public String toString() {
+        return "Sphere\n" + "Radius: " + radius + "\nSurface Area: " + surface_area() + "\nVolume: " + volume() + "\n";
+
+    }
+}
+
+public class Cylinder extends Shape {
+    private double radius;
+    private double height;
+
+    public Cylinder(double radius, double height) {
+        this.radius = radius;
+        this.height = height;
+    }
+
+    @Override
+    public double surface_area() {
+        return (2 * Math.PI * Math.pow(radius, 2)) * (2 * Math.PI * radius * height);
+    }
+
+    @Override
+    public double volume() {
+        return Math.PI * Math.pow(radius, 2) * height;
+    }
+
+    @Override
+    public String toString() {
+        return "Cylinder\n" + "Radius: " + radius + "\nHeight: " + height + "\nSurface Area: " + surface_area() + "\nVolume: " + volume() + "\n";
+    }
+}
